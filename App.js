@@ -8,8 +8,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {focusSubject ? <Text>Log me my focus subject</Text> : <Focus />}
-      <StatusBar style="auto" />
+      {focusSubject ? (
+        <Text>Log me my focus subject</Text>
+      ) : (
+        <Focus addSubject={setFocusSubject} />
+      )}
+      <Text>{focusSubject}</Text>
     </View>
   );
 }
