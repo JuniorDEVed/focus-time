@@ -1,12 +1,18 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const RoundedButton = ({ size = 25, style = {}, textStyle = {}, ...props }) => {
-  console.log("loaded");
+const RoundedButton = ({
+  style = {},
+  textStyle = {},
+  size = 135,
+  tempItem,
+  addSubject,
+  ...props
+}) => {
   return (
     <TouchableOpacity
-      onPress={() => console.log("pressed")}
       style={[styles(size).radius, style]}
+      onPress={() => addSubject(tempItem)}
     >
       <Text style={[styles(size).text, textStyle]}>{props.title}</Text>
     </TouchableOpacity>

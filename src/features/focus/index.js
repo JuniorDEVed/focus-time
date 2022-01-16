@@ -1,34 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import RoundedButton from "../../components/RoundedButton";
+import { fontSizes, spacing } from "../../utils/sizes";
+import { colors } from "../../utils/colors";
 
-const Focus = (props) => {
-  const [tmpItem, setTmpItem] = useState(null);
-
-  const handleAddSubject = () => {
-    props.addSubject(tmpItem);
-  };
+export const Focus = ({ addSubject }) => {
+  const [tempItem, setTempItem] = useState("");
+  useEffect(() => console.log(tempItem), [tempItem]);
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>
-          What would you like to focus on is it me?
-        </Text>
+        <Text style={styles.title}>What would you like to focus?</Text>
         <View style={styles.inputContainer}>
           <TextInput
-            onSubmitEditing={({ nativeEvent: { text } }) => setTmpItem(text)}
+            onSubmitEditing={({ nativeEvent }) => {
+              setTempItem(nativeEvent.text);
+            }}
             style={styles.textInput}
           />
-          <RoundedButton title="+" size={50} onPress={handleAddSubject} />
+          <RoundedButton
+            tempItem={tempItem}
+            addSubject={addSubject}
+            title="+"
+            size={50}
+          />
         </View>
       </View>
     </View>
   );
 };
-
-export default Focus;
 
 const styles = StyleSheet.create({
   container: {
@@ -36,16 +38,17 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 0.5,
-    padding: 16,
+    padding: spacing.md,
     justifyContent: "center",
   },
   title: {
-    color: "white",
+    color: colors.white,
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: fontSizes.lg,
     marginBottom: 20,
   },
   inputContainer: {
+    paddingTop: spacing.md,
     flexDirection: "row",
     alignItems: "center",
   },
